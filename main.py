@@ -7,6 +7,18 @@ from nltk.corpus import stopwords
 import string
 from nltk.stem.porter import PorterStemmer 
 
+def download_nltk_resource(resource_name):
+    import ssl
+    try:
+        _create_unverified_https_context = ssl._create_unverified_context
+    except AttributeError:
+        pass
+    else:
+        ssl._create_default_https_context = _create_unverified_https_context
+    
+    nltk.download(resource_name)
+
+    
 def transform_text(text):
     # 1. Lower case
     text = text.lower()
@@ -40,6 +52,9 @@ def transform_text(text):
     return " ".join(y)
 
 try:
+    if not nltk.data.find('tokenizers/punkt'):
+        download_nltk_resource('punkt')
+
     tfidf = pickle.load(open('./vectorizer.pkl', 'rb'))
     model = pickle.load(open('./model.pkl', 'rb'))
 except:

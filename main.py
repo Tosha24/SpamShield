@@ -40,8 +40,8 @@ def transform_text(text):
     return " ".join(y)
 
 try:
-    tfidf = pickle.load(open('vectorizer.pkl', 'rb'))
-    model = pickle.load(open('model.pkl', 'rb'))
+    tfidf = pickle.load(open('./vectorizer.pkl', 'rb'))
+    model = pickle.load(open('./model.pkl', 'rb'))
 except:
     pass
     # st.error('Model Loading error. Please check the model file path')

@@ -43,8 +43,9 @@ try:
     tfidf = pickle.load(open('vectorizer.pkl', 'rb'))
     model = pickle.load(open('model.pkl', 'rb'))
 except:
-    st.error('Model Loading error. Please check the model file path')
-    
+    pass
+    # st.error('Model Loading error. Please check the model file path')
+
 with open('image_url.txt', 'r') as f:
     image = f.read()
 

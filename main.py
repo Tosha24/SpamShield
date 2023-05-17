@@ -8,16 +8,10 @@ import string
 from nltk.stem.porter import PorterStemmer 
 
 def download_nltk_resource(resource_name):
-    import ssl
-    try:
-        _create_unverified_https_context = ssl._create_unverified_context
-    except AttributeError:
-        pass
-    else:
-        ssl._create_default_https_context = _create_unverified_https_context
-    
+    nltk.data.path.append("nltk_data")
+    nltk.download('punkt', download_dir="nltk_data")
     nltk.download(resource_name)
-
+    
     
 def transform_text(text):
     # 1. Lower case

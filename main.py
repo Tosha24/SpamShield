@@ -76,25 +76,30 @@ st.subheader('It is a SMS-Spam Classification System')
 input_sms = st.text_area(label='Enter message to classify')
 
 if st.button('Classify'):
-    try:
-        tfidf = pickle.load(open('vectorizer.pkl', 'rb'))
-        model = pickle.load(open('model.pkl', 'rb'))
+    with open('vectorizer.pkl', 'rb') as file1, open('model.pkl', 'rb') as file2:
+        try:
+            tfidf = pickle.load(file1)
+            model = pickle.load(file2)
 
-        # 1. Preprocess
-        transformed_sms = transform_text(input_sms)
+            # 1. Preprocess
+            transformed_sms = transform_text(input_sms)
 
-        # 2. Vectorize
-        vector_input = tfidf.transform([transformed_sms])
+            # 2. Vectorize
+            vector_input = tfidf.transform([transformed_sms])
 
-        # 3. Predict
-        result = model.predict(vector_input)[0]
+            # 3. Predict
+            result = model.predict(vector_input)[0]
 
-        # 4. Display
-        if input_sms == '':
-            st.header("Please enter a SMS to classify")
-        elif result == 1:
-            st.header("It is a Spam SMS")
-        else:
-            st.header("It is not a Spam SMS")
-    except:
-        st.header("Module not found")
+            # 4. Display
+            if input_sms == '':
+                st.header("Please enter a SMS to classify")
+            elif result == 1:
+                st.header("It is a Spam SMS")
+            else:
+                st.header("It is not a Spam SMS")
+        except Exception as e:
+            st.header(e)
+
+        finally:
+            file1.close()
+            file2.close()

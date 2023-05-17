@@ -55,8 +55,8 @@ try:
     if not nltk.data.find('tokenizers/punkt'):
         download_nltk_resource('punkt')
 
-    tfidf = pickle.load(open('./vectorizer.pkl', 'rb'))
-    model = pickle.load(open('./model.pkl', 'rb'))
+    tfidf = pickle.load(open('vectorizer.pkl', 'rb'))
+    model = pickle.load(open('model.pkl', 'rb'))
 except:
     pass
     # st.error('Model Loading error. Please check the model file path')

@@ -2,16 +2,14 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
-import nltk
 from nltk.corpus import stopwords
 import string
-from nltk.stem.porter import PorterStemmer 
+from nltk.stem.porter import PorterStemmer
+import nltk
 
-def download_nltk_resource(resource_name):
-    nltk.data.path.append("nltk_data")
-    nltk.download('punkt', download_dir="nltk_data")
-    nltk.download(resource_name)
-    
+nltk.download('punkt')
+nltk.download('stopwords')
+
     
 def transform_text(text):
     # 1. Lower case
@@ -46,14 +44,10 @@ def transform_text(text):
     return " ".join(y)
 
 try:
-    if not nltk.data.find('tokenizers/punkt'):
-        download_nltk_resource('punkt')
-
     tfidf = pickle.load(open('vectorizer.pkl', 'rb'))
     model = pickle.load(open('model.pkl', 'rb'))
 except:
-    pass
-    # st.error('Model Loading error. Please check the model file path')
+    st.error('Model Loading error. Please check the model file path')
 
 with open('image_url.txt', 'r') as f:
     image = f.read()
